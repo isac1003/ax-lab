@@ -1,0 +1,60 @@
+---
+layout: default
+---
+<div class="hero">
+  <div class="wrap">
+    <h1>사업경영, AI로 날개 달다</h1>
+    <p class="motto">Business, Powered by AI</p>
+    <p>MAX AX랩은 중소기업과 소상공인이 <strong style="color:#fff">인공지능으로 경영을
+    개선하는 방법</strong>을 안내합니다. 업종별 활용 사례와 도구 가이드를 꾸준히 쌓고,
+    "우리 회사는 어디부터 시작할지"까지 이어드립니다. 1982년부터 경영 데이터로
+    기업을 진단해 온 맥스컨설팅이 운영합니다.</p>
+    <div class="stats">
+      <div class="stat"><span class="num">업종별</span><span class="label">AI 활용 사례</span></div>
+      <div class="stat"><span class="num">비용·난이도</span><span class="label">기준 도구 가이드</span></div>
+      <div class="stat"><span class="num">40년+</span><span class="label">운영사 맥스컨설팅 경영진단 업력</span></div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <h2>누구를 위한 사이트인가요?</h2>
+  <div class="services">
+    <a class="service" href="{{ '/cases/' | relative_url }}"><h3>사장님 (소상공인)</h3><p>발주, 리뷰 답글, 홍보 글, 정산까지. 가게의 반복 업무를 AI에게 맡기는 방법을 사례로 보여드립니다. 오늘 바로 따라할 수 있는 것부터 시작합니다</p></a>
+    <a class="service" href="{{ '/cases/' | relative_url }}"><h3>중소기업 경영자</h3><p>회사에 쌓인 매출, 생산, 영업 데이터에 AI를 붙이면 어디가 달라지는지, 업무별 개선 사례와 도입 순서를 안내합니다</p></a>
+    <a class="service" href="{{ '/start/' | relative_url }}"><h3>어디서 시작할지 막막한 분</h3><p>첫 업무를 고르는 기준과 흔한 실패를 정리한 시작 가이드부터 읽어보세요. 진단이 필요하면 운영사 맥스컨설팅이 이어받습니다</p></a>
+  </div>
+</section>
+
+<section>
+  <h2>활용 사례</h2>
+  <p class="section-desc">업종별로 "어떤 업무를, 어떤 AI로, 어떻게 바꿨나"를 정리합니다.</p>
+  <ul class="archive-list">
+  {% assign latest = site.categories.cases | slice: 0, 7 %}
+  {% for post in latest %}
+    <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time><div class="idea-item"><a href="{{ post.url | relative_url }}">{{ post.title }}</a>{% if post.oneliner %}<span class="idea-sub">{{ post.oneliner }}</span>{% endif %}</div></li>
+  {% endfor %}
+  </ul>
+  <p><a class="more-link" href="{{ '/cases/' | relative_url }}">활용 사례 전체 보기 →</a></p>
+</section>
+
+<section>
+  <h2>도구 가이드</h2>
+  <p class="section-desc">쓸 만한 AI 도구를 비용과 난이도 기준으로 소개합니다.</p>
+  <ul class="archive-list">
+  {% assign lt = site.categories.tools | slice: 0, 5 %}
+  {% for post in lt %}
+    <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y.%m.%d" }}</time><div class="idea-item"><a href="{{ post.url | relative_url }}">{{ post.title }}</a>{% if post.oneliner %}<span class="idea-sub">{{ post.oneliner }}</span>{% endif %}</div></li>
+  {% endfor %}
+  </ul>
+  <p><a class="more-link" href="{{ '/tools/' | relative_url }}">도구 가이드 전체 보기 →</a></p>
+</section>
+
+<section>
+  <h2>읽는 데서 끝나지 않게</h2>
+  <p>글을 읽고 "우리 회사에도 되겠는데" 싶으시면 다음 단계가 있습니다. 운영사
+  맥스컨설팅은 경영 데이터 진단부터 AI 도입 로드맵, 정부 지원사업 연계까지
+  하나로 잇는 AX 컨설팅을 합니다. <a href="https://maxconsulting.or.kr/business/">기업 서비스 보기 →</a>
+  · 활용할 수 있는 지원사업은 <a href="https://maxconsulting.or.kr/briefing/">지원사업 브리핑</a>에서
+  매일 업데이트됩니다.</p>
+</section>

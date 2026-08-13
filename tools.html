@@ -1,0 +1,21 @@
+---
+layout: default
+title: 도구 가이드
+description: 중소기업과 소상공인이 실제로 쓸 만한 AI 도구를 비용과 난이도 기준으로 소개하는 아카이브.
+permalink: /tools/
+---
+<h1>도구 가이드</h1>
+<p class="section-desc">쓸 만한 AI 도구를 비용과 난이도 기준으로 소개합니다. 업무에 적용하는 방법은
+<a href="{{ '/cases/' | relative_url }}">활용 사례</a>에서 이어집니다. 항목을 클릭하시면 세부내용을 보실 수 있습니다.</p>
+{% assign prev_month = "" %}
+{% for post in site.categories.tools %}
+  {% assign this_month = post.date | date: "%Y년 %m월" %}
+  {% if this_month != prev_month %}
+    {% unless forloop.first %}</ul>{% endunless %}
+    <h2 class="archive-month">{{ this_month }}</h2>
+    <ul class="archive-list">
+    {% assign prev_month = this_month %}
+  {% endif %}
+  <li><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%m.%d" }}</time><div class="idea-item"><a href="{{ post.url | relative_url }}">{{ post.title }}</a>{% if post.oneliner %}<span class="idea-sub">{{ post.oneliner }}</span>{% endif %}</div></li>
+  {% if forloop.last %}</ul>{% endif %}
+{% endfor %}

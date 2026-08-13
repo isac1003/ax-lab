@@ -1,0 +1,42 @@
+---
+layout: default
+---
+<article class="post">
+  <header>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y년 %m월 %d일" }}</time>
+      · 도구 가이드{% if page.task %} · {{ page.task }}{% endif %}
+    </p>
+    <h1>{{ page.title }}</h1>
+    <p class="brief-meta">
+      {% if page.cost %}<span class="badge badge-ongoing">{{ page.cost }}</span>{% endif %}
+      {% if page.level == 'easy' %}<span class="badge badge-guide">오늘 바로 가능</span>{% elsif page.level == 'mid' %}<span class="badge badge-guide">준비 필요</span>{% endif %}
+      {% if page.website %}<a href="{{ page.website }}" target="_blank" rel="noopener nofollow">공식 사이트 →</a>{% endif %}
+    </p>
+  </header>
+  {{ content }}
+  {% if page.sources %}
+  <section class="sources">
+    <h2>참고 자료</h2>
+    <ul>
+    {% for s in page.sources %}
+      <li><a href="{{ s.url }}" target="_blank" rel="nofollow noopener">{{ s.title }}</a></li>
+    {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+  <p class="ai-disclosure">도구 가이드는 공개 정보를 기준으로 작성합니다. 기능과 요금은 변경될 수 있으니 도입 전 공식 사이트에서 확인하세요. 작성일: {{ page.date | date: "%Y-%m-%d" }}</p>
+
+  {% assign catposts = site.categories.tools %}
+  {% assign idx = -1 %}
+  {% for p in catposts %}{% if p.url == page.url %}{% assign idx = forloop.index0 %}{% endif %}{% endfor %}
+  {% assign newer_i = idx | minus: 1 %}
+  {% assign older_i = idx | plus: 1 %}
+  <nav class="post-nav">
+    <div class="post-nav-row">
+      {% if newer_i >= 0 %}{% assign newer = catposts[newer_i] %}<a class="nav-prev" href="{{ newer.url | relative_url }}">← 다음 글</a>{% else %}<span></span>{% endif %}
+      {% if older_i < catposts.size %}{% assign older = catposts[older_i] %}<a class="nav-next" href="{{ older.url | relative_url }}">이전 글 →</a>{% else %}<span></span>{% endif %}
+    </div>
+    <p class="nav-list"><a href="{{ '/tools/' | relative_url }}">☰ 도구 가이드 목록 보기</a> · <a href="{{ '/cases/' | relative_url }}">활용 사례</a> · <a href="{{ '/' | relative_url }}">홈으로</a></p>
+  </nav>
+</article>

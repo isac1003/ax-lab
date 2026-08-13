@@ -1,0 +1,58 @@
+---
+layout: default
+---
+<article class="post">
+  <header>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y년 %m월 %d일" }}</time>
+      · 활용 사례{% if page.sector %} · {{ page.sector }}{% endif %}{% if page.task %} · {{ page.task }}{% endif %}
+    </p>
+    <h1>{{ page.title }}</h1>
+    {% if page.level %}
+    <p class="brief-meta">
+      {% if page.level == 'easy' %}<span class="badge badge-ongoing">오늘 바로 가능</span>
+      {% elsif page.level == 'mid' %}<span class="badge badge-guide">준비 필요</span>
+      {% elsif page.level == 'pro' %}<span class="badge badge-target">전문가 도움 권장</span>{% endif %}
+      {% if page.cost %}<span class="badge badge-dday">{{ page.cost }}</span>{% endif %}
+    </p>
+    {% endif %}
+  </header>
+  {{ content }}
+  {% if page.sources %}
+  <section class="sources">
+    <h2>참고 자료</h2>
+    <ul>
+    {% for s in page.sources %}
+      <li><a href="{{ s.url }}" target="_blank" rel="nofollow noopener">{{ s.title }}</a></li>
+    {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+  <p class="ai-disclosure">이 글은 AI가 공개 자료를 종합·분석하여 작성했습니다. 도구와 요금은 변경될 수 있으니 도입 전 확인하세요. 작성일: {{ page.date | date: "%Y-%m-%d" }}</p>
+
+  {% assign catposts = site.categories.cases %}
+  {% assign idx = -1 %}
+  {% for p in catposts %}{% if p.url == page.url %}{% assign idx = forloop.index0 %}{% endif %}{% endfor %}
+  {% assign newer_i = idx | minus: 1 %}
+  {% assign older_i = idx | plus: 1 %}
+  <nav class="post-nav">
+    <div class="post-nav-row">
+      {% if newer_i >= 0 %}{% assign newer = catposts[newer_i] %}<a class="nav-prev" href="{{ newer.url | relative_url }}">← 다음 글</a>{% else %}<span></span>{% endif %}
+      {% if older_i < catposts.size %}{% assign older = catposts[older_i] %}<a class="nav-next" href="{{ older.url | relative_url }}">이전 글 →</a>{% else %}<span></span>{% endif %}
+    </div>
+    <p class="nav-list"><a href="{{ '/cases/' | relative_url }}">☰ 활용 사례 목록 보기</a> · <a href="{{ '/tools/' | relative_url }}">도구 가이드</a> · <a href="{{ '/' | relative_url }}">홈으로</a></p>
+  </nav>
+</article>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "author": { "@type": "Organization", "name": "{{ site.company.name_ko }}", "url": "{{ site.company.main_site }}" },
+  "publisher": { "@type": "Organization", "name": "{{ site.company.name_ko }}", "logo": { "@type": "ImageObject", "url": "{{ '/assets/logo.png' | absolute_url }}" } },
+  "mainEntityOfPage": "{{ page.url | absolute_url }}",
+  "inLanguage": "ko"
+}
+</script>
